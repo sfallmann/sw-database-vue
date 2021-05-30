@@ -29,6 +29,7 @@ export default {
 <style lang="scss">
 .home {
   min-width: 700px;
+  height: 100vh;
 }
 .app-content {
   padding-top: 160px;

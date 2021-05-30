@@ -1,7 +1,7 @@
 <template>
   <div class="center-column-aligned">
-    <section class="resources-page-content">
-      <div class="data" v-if="!loading">
+    <section class="resources-page-content ">
+      <div class="data scrollbar" v-if="!loading">
         <ul class="center-column-aligned">
           <router-link v-for="resource in resources"
             :key="resource.name" class="resource-link hover-higlight"
@@ -99,7 +99,7 @@ export default {
 <style lang="scss">
 ul {
   padding: 0;
-  min-height: 340px;
+
 }
 .loading {
   position: absolute;
@@ -147,6 +147,8 @@ ul {
   flex-flow: column;
   justify-content: space-between;
   align-content: space-center;
+    max-height: calc(100vh - 280px);
+  overflow-y: auto;
 }
 .resources-page-content {
   position: relative;
@@ -154,9 +156,9 @@ ul {
   background: black;
   min-width: 450px;
   width: 60vw;
-  min-height: 375px;
   border-radius: 5px;
   box-shadow: 1px 1px 16px 10px rgba(164,253,255,0.79);
+
 }
 .resource-link {
   color: white;

@@ -36,6 +36,10 @@ body {
   background-color: black;
   background-position: center;
   height: 100vh;
+  * {
+    box-sizing: border-box;
+  }
+  margin: 0;
 }
 
 .center-column-aligned {
