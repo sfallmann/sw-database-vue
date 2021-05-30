@@ -1,5 +1,5 @@
 <template>
-  <section class="resource-details">
+  <section class="resource-details scrollbar">
     <div v-for="entry in details" :key="entry.key" class='detail'>
       <p class="detail-key">{{ entry.label }}</p>
       <code
@@ -18,7 +18,18 @@ export default {
   },
   props: ['url'],
   async mounted() {
-    this.resource = await this.$store.dispatch('FETCH_RESOURCE_BY_NAME', { type: this.resourceType, name: this.resourceName });
+    const resourceType = this.$store.getters.resourceTypes
+      .find((r) => r.name === this.resourceType);
+    try {
+      const resp = await this.$store.dispatch('FETCH_RESOURCE_BY_NAME', { type: this.resourceType, name: this.resourceName });
+      if (resp) {
+        this.resource = resp;
+      } else {
+        this.$router.replace({ name: 'resource-page', params: { resourceType: resourceType.name, resourceName: '' }, query: { page: 1 } });
+      }
+    } catch (err) {
+      this.$router.replace({ name: 'Home' });
+    }
   },
   computed: {
     details() {
@@ -37,7 +48,7 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss">
+<style lang="scss">
   .resource-details {
     margin-left: 15px;
     margin-right: 15px;
@@ -47,6 +58,8 @@ export default {
     color: white;
     border-radius: 5px;
     box-shadow: 1px 1px 16px 10px rgba(164,253,255,0.79);
+    overflow-y: auto;
+    max-height: calc(100vh - 280px);
   }
   .detail {
     display: flex;
@@ -57,7 +70,7 @@ export default {
     text-transform: capitalize;
   }
   .detail-value {
-    color: lighten(#80bcc2, 15%);
+    color: $lightgreen;
   }
   .detail-value, .detail-key {
     margin: 0;

@@ -1,10 +1,10 @@
 <template>
-  <div class="home">
-      <app-header :resourceTypes="resourceTypes" />
+  <div class="home" v-if="resourceTypes.length">
+      <app-header :resourceTypes="resourceTypes"  />
       <div class="app-content">
-        <div-class class="center-column-aligned" v-show="$route.name ==='Home'">
+        <div class="center-column-aligned" v-show="$route.name ==='Home'">
           Some message can go here
-        </div-class>
+        </div>
         <router-view :key="$route.fullPath"/>
       </div>
   </div>
@@ -20,7 +20,8 @@ export default {
   },
   computed: {
     resourceTypes() {
-      return this.$store.getters.resourceTypes;
+      return this.$store.getters.resourceTypes
+        .map((r) => r.name);
     },
   },
 };

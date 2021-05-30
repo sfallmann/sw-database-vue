@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 @font-face {
     font-family: 'Star Jedi Hollow';
     src: url('../assets/fonts/StarJediHollow.woff2') format('woff2'),
@@ -25,6 +27,8 @@
     font-display: swap;
 }
 
+
+
 body {
   background: url(../assets/star-wars-backgrounds-04.jpg);
   background-repeat: no-repeat;
@@ -44,4 +48,33 @@ body {
   &:hover {
     text-shadow: -3px 0px 6px rgba(255, 255, 255, 0.96);
   }
+}
+
+.scrollbar {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: $darkgreen;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: $green;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $lightgreen;
+  }
+}
+
+
+.light-green-text {
+  color: $lightgreen;
 }

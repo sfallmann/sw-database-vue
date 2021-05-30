@@ -81,17 +81,15 @@ export default {
   watch: {
     page: {
       immediate: true,
-      handler() {
-        this.$nextTick(async () => {
-          this.loading = true;
-          try {
-            await this.$store.dispatch('FETCH_RESOURCES', { type: this.resourceType, page: this.page });
-            this.loading = false;
-          } catch (err) {
-            this.loading = false;
-            this.$router.replace({ name: 'Home' });
-          }
-        });
+      async handler() {
+        this.loading = true;
+        try {
+          await this.$store.dispatch('FETCH_RESOURCES', { type: this.resourceType, page: this.page });
+          this.loading = false;
+        } catch (err) {
+          this.loading = false;
+          this.$router.replace({ name: 'Home' });
+        }
       },
     },
   },
