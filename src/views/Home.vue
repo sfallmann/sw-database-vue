@@ -1,11 +1,12 @@
 <template>
   <div class="home">
       <app-header :resourceTypes="resourceTypes" />
-      <hr />
-      <div class="center-column-aligned" v-show="$route.name ==='Home'">
-        Some message can go here
+      <div class="app-content">
+        <div-class class="center-column-aligned" v-show="$route.name ==='Home'">
+          Some message can go here
+        </div-class>
+        <router-view :key="$route.fullPath"/>
       </div>
-      <router-view :key="$route.fullPath"/>
   </div>
 </template>
 
@@ -25,7 +26,12 @@ export default {
 };
 </script>
 <style lang="scss">
-
+.home {
+  min-width: 700px;
+}
+.app-content {
+  padding-top: 160px;
+}
 .nav-button {
   cursor: pointer;
   font-size: 16px;

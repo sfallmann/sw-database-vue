@@ -1,7 +1,9 @@
 <template>
   <section class="resource-details">
     <div v-for="entry in details" :key="entry.key" class='detail'>
-      <div class="detail-key">{{ entry.key }}</div>: <div>{{ entry.value }}</div>
+      <p class="detail-key">{{ entry.label }}</p>
+      <code
+        class="detail-value">{{ entry.value }}</code>
     </div>
   </section>
 </template>
@@ -21,7 +23,10 @@ export default {
   computed: {
     details() {
       return Object.entries(this.resource).filter(([key]) => !['created', 'edited', 'url', 'page'].includes(key))
-        .map(([key, value]) => ({ key, value }));
+        .map(([key, value]) => {
+          const label = key.replace(/_/g, ' ');
+          return { key, label, value };
+        });
     },
     resourceType() {
       return this.$route.params.resourceType;
@@ -33,11 +38,32 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+  .resource-details {
+    margin-left: 15px;
+    margin-right: 15px;
+    background-color: black;
+    opacity: .9;
+    padding: 15px;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 16px 10px rgba(164,253,255,0.79);
+  }
   .detail {
     display: flex;
+    text-align: left;
   }
   .detail-key {
+    min-width: 240px;
+    text-transform: capitalize;
+  }
+  .detail-value {
+    color: lighten(#80bcc2, 15%);
+  }
+  .detail-value, .detail-key {
+    margin: 0;
+    padding: 5px 10px 5px 10px;
+    font-size: 16px;
+    font-weight: 700;
     text-align: left;
-    width: 200px;
   }
 </style>

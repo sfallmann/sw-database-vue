@@ -25,8 +25,23 @@
     font-display: swap;
 }
 
+body {
+  background: url(../assets/star-wars-backgrounds-04.jpg);
+  background-repeat: no-repeat;
+  background-size: auto 100vh;
+  background-color: black;
+  background-position: center;
+  height: 100vh;
+}
+
 .center-column-aligned {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.hover-higlight {
+  &:hover {
+    text-shadow: -3px 0px 6px rgba(255, 255, 255, 0.96);
+  }
 }
