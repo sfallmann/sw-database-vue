@@ -3,17 +3,21 @@ import { SET_RESOURCES, SET_RESOURCES_META, SET_RESOURCE_TYPES } from './mutatio
 export default {
   [SET_RESOURCES](state, payload) {
     const { type, resources } = payload;
-    if (state.resources[type]) {
-      state.resources[type].push(...resources);
+    const stateResources = state.resources.find((r) => r.type === type);
+    if (stateResources) {
+      stateResources.items.push(...resources);
     } else {
-      state.resources[type] = [...resources];
+      state.resources.push({ type, items: resources });
     }
   },
   [SET_RESOURCES_META](state, payload) {
     const { type, meta } = payload;
-    const storedMeta = state.resourcesMeta[type] ?? [];
-
-    state.resourcesMeta[type] = [...storedMeta, meta];
+    const stateMeta = state.resourcesMeta.find((r) => r.type === type);
+    if (stateMeta) {
+      stateMeta.items.push(meta);
+    } else {
+      state.resourcesMeta.push({ type, items: [meta] });
+    }
   },
   [SET_RESOURCE_TYPES](state, resourceTypes) {
     state.resourceTypes = resourceTypes;

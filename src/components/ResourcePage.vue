@@ -3,8 +3,8 @@
       <ul class="center-column-aligned">
         <router-link v-for="resource in resources" :key="resource.name"
          :to="{
-           name: `${$route.name}-details`,
-           params: { name: resource.name || resource.title, url: resource.url }
+           name: 'resource-details',
+           params: { resourceName: resource.name || resource.title, resourceType }
           }">
           {{ resource.name || resource.title }}
         </router-link>
@@ -26,26 +26,27 @@ export default {
   name: 'ResourcePage',
   computed: {
     next() {
-      const meta = this.$store.getters.resourcesMeta[this.$route.name];
-      const pageMeta = meta?.find((m) => m.page === this.page);
-
-      if (pageMeta?.next) {
-        return { name: this.$route.name, query: { page: this.page + 1 } };
+      if (this.pageMeta?.next) {
+        return { name: 'resource-page', params: { resourceType: this.resourceType }, query: { page: this.page + 1 } };
       }
       return null;
     },
     previous() {
-      const meta = this.$store.getters.resourcesMeta[this.$route.name];
-      const pageMeta = meta?.find((m) => m.page === this.page);
-      if (pageMeta?.previous) {
-        return { name: this.$route.name, query: { page: this.page - 1 } };
+      if (this.pageMeta?.previous) {
+        return { name: 'resource-page', params: { resourceType: this.resourceType }, query: { page: this.page - 1 } };
       }
       return null;
     },
     resources() {
-      console.log('computed resource');
-      const resources = this.$store.getters.resources[this.$route.name];
-      return resources?.filter((r) => r.page === this.page) ?? [];
+      return this.$store.getters.resources
+        .find((r) => r.type === this.resourceType)?.items.filter((r) => r.page === this.page) ?? [];
+    },
+    resourceType() {
+      return this.$route.params.resourceType;
+    },
+    pageMeta() {
+      return this.$store.getters.resourcesMeta
+        .find((m) => m.type === this.resourceType)?.items.find((m) => m.page === this.page);
     },
     page() {
       const page = this.$route.query?.page ?? 1;
@@ -56,7 +57,7 @@ export default {
     page: {
       immediate: true,
       handler() {
-        this.$store.dispatch('FETCH_RESOURCES', { type: this.$route.name, page: this.page });
+        this.$store.dispatch('FETCH_RESOURCES', { type: this.resourceType, page: this.page });
       },
     },
   },

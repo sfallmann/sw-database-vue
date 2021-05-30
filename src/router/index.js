@@ -6,27 +6,27 @@ import ResourceDetails from '../components/ResourceDetails.vue';
 
 Vue.use(VueRouter);
 
-// eslint-disable-next-line import/prefer-default-export
-export function createRouter(resources) {
-  const resourcePageRoutes = resources
-    .map((resource) => ({
-      path: `/${resource}`, name: resource, component: ResourcePage,
-    }));
-  const resourceDetailsRoutes = resources
-    .map((resource) => ({
-      path: `/${resource}/:name`, name: `${resource}-details`, component: ResourceDetails,
-    }));
+export default new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: Home,
+      children: [
+        {
+          path: '/:resourceType',
+          name: 'resource-page',
+          component: ResourcePage,
+        },
+        {
+          path: '/:resourceType/:resourceName',
+          name: 'resource-details',
+          component: ResourceDetails,
+        },
+      ],
+    },
 
-  return new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes: [
-      {
-        path: '/',
-        name: 'Home',
-        component: Home,
-        children: [...resourcePageRoutes, ...resourceDetailsRoutes],
-      },
-    ],
-  });
-}
+  ],
+});

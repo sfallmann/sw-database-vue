@@ -2,9 +2,9 @@
   <nav class="center-column-aligned">
     <span class="title-text">Star Wars Database</span>
     <div class="nav-links">
-      <router-link  v-for="link in links" :key="link" class="nav-link"
-        :to="{ name: link, query: { page: 1 } }">
-        {{ link.toUpperCase() }}
+      <router-link  v-for="resourceType in resourceTypes" :key="resourceType" class="nav-link"
+        :to="{ name: 'resource-page', query: { page: 1 }, params: { resourceType } }">
+        {{ resourceType.toUpperCase() }}
       </router-link>
     </div>
   </nav>
@@ -13,7 +13,7 @@
 <script>
 export default {
   name: 'AppHeader',
-  props: ['links'],
+  props: ['resourceTypes'],
 };
 </script>
 

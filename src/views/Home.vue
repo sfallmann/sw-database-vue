@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-      <app-header :links="links" />
+      <app-header :resourceTypes="resourceTypes" />
       <hr />
       <div class="center-column-aligned" v-show="$route.name ==='Home'">
         Some message can go here
       </div>
-      <router-view :key="$route.name + $route.query"/>
+      <router-view :key="$route.fullPath"/>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     AppHeader,
   },
   computed: {
-    links() {
+    resourceTypes() {
       return this.$store.getters.resourceTypes;
     },
   },
