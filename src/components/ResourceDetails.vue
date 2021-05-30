@@ -16,12 +16,13 @@ export default {
   },
   props: ['url'],
   async mounted() {
-    const resp = await fetch(this.url);
-    this.resource = await resp.json();
+    const [type] = this.$route.name.split('-');
+    const { name } = this.$route.params;
+    this.resource = await this.$store.dispatch('FETCH_RESOURCE_BY_NAME', { type, name });
   },
   computed: {
     details() {
-      return Object.entries(this.resource).filter(([key]) => !['created', 'edited', 'url'].includes(key))
+      return Object.entries(this.resource).filter(([key]) => !['created', 'edited', 'url', 'page'].includes(key))
         .map(([key, value]) => ({ key, value }));
     },
   },

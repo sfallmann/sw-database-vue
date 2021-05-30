@@ -3,7 +3,7 @@
     <span class="title-text">Star Wars Database</span>
     <div class="nav-links">
       <router-link  v-for="link in links" :key="link" class="nav-link"
-        :to="{ name: link, params: { resourceType: link } }">
+        :to="{ name: link, query: { page: 1 } }">
         {{ link.toUpperCase() }}
       </router-link>
     </div>

@@ -3,7 +3,14 @@
     <router-view/>
   </div>
 </template>
-
+<script>
+export default {
+  name: 'App',
+  created() {
+    this.$store.dispatch('FETCH_RESOURCE_TYPES');
+  },
+};
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

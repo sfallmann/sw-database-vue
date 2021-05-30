@@ -5,23 +5,22 @@
       <div class="center-column-aligned" v-show="$route.name ==='Home'">
         Some message can go here
       </div>
-      <router-view :key="$route.name"/>
+      <router-view :key="$route.name + $route.query"/>
   </div>
 </template>
 
 <script>
 import AppHeader from '@/components/Header.vue';
-import { RESOURCES } from '../constants';
 
 export default {
   name: 'Home',
   components: {
     AppHeader,
   },
-  data() {
-    return {
-      links: RESOURCES,
-    };
+  computed: {
+    links() {
+      return this.$store.getters.resourceTypes;
+    },
   },
 };
 </script>

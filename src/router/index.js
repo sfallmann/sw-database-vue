@@ -3,32 +3,30 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import ResourcePage from '../components/ResourcePage.vue';
 import ResourceDetails from '../components/ResourceDetails.vue';
-import { RESOURCES } from '../constants';
 
 Vue.use(VueRouter);
 
-const ResourcePageRoutes = RESOURCES
-  .map((resource) => ({
-    path: `/${resource}`, name: resource, component: ResourcePage, props: true,
-  }));
-const resourceDetailsRoutes = RESOURCES
-  .map((resource) => ({
-    path: `/${resource}/:name`, name: `${resource}-details`, component: ResourceDetails, props: true,
-  }));
+// eslint-disable-next-line import/prefer-default-export
+export function createRouter(resources) {
+  const resourcePageRoutes = resources
+    .map((resource) => ({
+      path: `/${resource}`, name: resource, component: ResourcePage,
+    }));
+  const resourceDetailsRoutes = resources
+    .map((resource) => ({
+      path: `/${resource}/:name`, name: `${resource}-details`, component: ResourceDetails,
+    }));
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    children: [...ResourcePageRoutes, ...resourceDetailsRoutes],
-  },
-];
-
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
-});
-
-export default router;
+  return new VueRouter({
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+      {
+        path: '/',
+        name: 'Home',
+        component: Home,
+        children: [...resourcePageRoutes, ...resourceDetailsRoutes],
+      },
+    ],
+  });
+}
