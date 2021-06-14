@@ -2,8 +2,17 @@ import { FETCH_RESOURCES, FETCH_RESOURCE_BY_NAME, FETCH_RESOURCE_TYPES } from '.
 import { SET_RESOURCES, SET_RESOURCES_META, SET_RESOURCE_TYPES } from './mutation-types';
 
 const FIVE_MIN = 1000 * 60 * 5;
-
+/**
+ * Actions for handle requests\data for the SW API
+ *
+ * @type {object}
+ */
 export default {
+  /**
+   * Fetches the resource types defined in the SW API schema
+   * @public
+   * @function FETCH_RESOURCES
+   */
   async [FETCH_RESOURCES]({ commit, state }, payload) {
     const { type, page } = payload;
     const cachedResource = state.resources
