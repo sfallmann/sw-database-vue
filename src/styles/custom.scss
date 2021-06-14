@@ -1,0 +1,84 @@
+@import './variables.scss';
+
+@font-face {
+    font-family: 'Star Jedi Hollow';
+    src: url('../assets/fonts/StarJediHollow.woff2') format('woff2'),
+        url('../assets/fonts/StarJediHollow.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Star Jedi Rounded';
+    src: url('../assets/fonts/StarJediRounded.woff2') format('woff2'),
+        url('../assets/fonts/StarJediRounded.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Star Jedi';
+    src: url('../assets/fonts/StarJedi.woff2') format('woff2'),
+        url('../assets/fonts/StarJedi.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+body {
+  background: url(../assets/star-wars-backgrounds-04.jpg);
+  background-repeat: no-repeat;
+  background-size: auto 100vh;
+  background-color: black;
+  background-position: center;
+  height: 100vh;
+  * {
+    box-sizing: border-box;
+  }
+  margin: 0;
+}
+
+.center-column-aligned {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hover-higlight {
+  &:hover {
+    text-shadow: -3px 0px 6px rgba(255, 255, 255, 0.96);
+  }
+}
+
+.scrollbar {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: $darkgreen;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: $green;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $lightgreen;
+  }
+}
+
+
+.light-green-text {
+  color: $lightgreen;
+}
